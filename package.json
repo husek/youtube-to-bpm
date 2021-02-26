@@ -1,0 +1,125 @@
+{
+  "name": "youtube-to-bpm",
+  "version": "1.0.0",
+  "description": "Quickly get a BPM of a song from YouTube",
+  "main": "./dist/main.js",
+  "scripts": {
+    "dev": "npm-run-all -p dev:react electron:serve",
+    "dev:electron": "cross-env NODE_ENV=development webpack --config webpack/electron.webpack.js --mode development && npm run start:electron",
+    "dev:react": "cross-env NODE_ENV=development webpack-dev-server --config webpack/react.webpack.js --mode development",
+    "electron:serve": "wait-on http-get://localhost:4000/ && npm run dev:electron",
+    "start:electron": "electron .",
+    "build": "npm-run-all build:electron build:react",
+    "build:run": "npm-run-all build start:electron",
+    "build:electron": "webpack --config webpack/electron.webpack.js",
+    "build:react": "webpack --config webpack/react.webpack.js",
+    "package": "npm-run-all build package:dist",
+    "package:dist": "electron-builder --dir",
+    "dist": "electron-builder -mwl",
+    "test": "jest"
+  },
+  "author": "Gabriel Husek <husek@me.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.5",
+    "@babel/preset-react": "^7.9.4",
+    "@babel/preset-typescript": "^7.9.0",
+    "@commitlint/cli": "^9.0.1",
+    "@commitlint/config-conventional": "^9.0.1",
+    "@commitlint/core": "^9.0.1",
+    "@testing-library/jest-dom": "^5.11.0",
+    "@testing-library/react": "^10.4.3",
+    "@types/electron-devtools-installer": "^2.2.0",
+    "@types/jest": "^26.0.3",
+    "@types/material-ui": "^0.21.8",
+    "@types/react": "^16.9.34",
+    "@types/react-dom": "^16.9.6",
+    "@types/styled-components": "^5.1.0",
+    "@types/webaudioapi": "0.0.27",
+    "@typescript-eslint/eslint-plugin": "^3.4.0",
+    "@typescript-eslint/parser": "^3.4.0",
+    "babel-loader": "^8.1.0",
+    "cross-env": "^7.0.2",
+    "electron": "^8.2.2",
+    "electron-builder": "^22.7.0",
+    "eslint": "^7.3.1",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-import-resolver-typescript": "^2.0.0",
+    "eslint-plugin-import": "^2.22.0",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-react": "^7.20.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "html-webpack-plugin": "^4.2.0",
+    "jest": "^26.1.0",
+    "npm-run-all": "^4.1.5",
+    "svg-url-loader": "^7.1.1",
+    "ts-jest": "^26.1.1",
+    "typescript": "^3.9.5",
+    "wait-on": "^5.0.1",
+    "webpack": "^4.42.1",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3",
+    "webpack-node-externals": "^2.5.2"
+  },
+  "dependencies": {
+    "electron-devtools-installer": "^3.1.1",
+    "@babel/polyfill": "^7.12.1",
+    "@ffmpeg-installer/ffmpeg": "^1.0.20",
+    "@material-ui/core": "^4.11.3",
+    "music-tempo": "^1.0.3",
+    "react": "^17.0.1",
+    "react-dom": "^17.0.1",
+    "styled-components": "^5.2.1",
+    "web-audio-api": "^0.2.2",
+    "youtube-mp3-downloader": "^0.7.6"
+  },
+
+  "build":{
+    "productName":"YouTube-to-BPM",
+    "appId":"husek.youtubeToBPM",
+    "dmg":{
+      "contents":[
+        {
+          "x":130,
+          "y":220
+        },
+        {
+          "x":410,
+          "y":220,
+          "type":"link",
+          "path":"/Applications"
+        }
+      ]
+    },
+    "mac": {
+      "category": "public.tools.audio"
+    },
+    "win":{
+      "target":[
+        "nsis",
+        "msi"
+      ]
+    },
+    "linux":{
+      "target":[
+        "deb",
+        "rpm",
+        "snap",
+        "AppImage"
+      ],
+      "category":"Development"
+    },
+    "files": [
+      "package.json",
+      "./dist/renderer/js/main.js",
+      "./dist/renderer/index.html",
+      "./dist/main.js"
+    ],
+    "directories":{
+      "buildResources":"resources",
+      "output":"release"
+    }
+  }
+}
