@@ -104,6 +104,7 @@
     },
     "linux":{
       "target":[
+        "pacman",
         "deb",
         "rpm",
         "snap",
