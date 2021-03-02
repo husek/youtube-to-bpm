@@ -8,7 +8,7 @@ import { AudioContext } from 'web-audio-api';
 import ffmpeg from '@ffmpeg-installer/ffmpeg';
 
 const { path: ffmepgPath } = ffmpeg;
-const outPutPath = `${__dirname}`
+const outPutPath = app.getPath('temp');
 
 const YD = new YoutubeMp3Downloader({
   'ffmpegPath': ffmepgPath,
