@@ -1,15 +1,14 @@
   import React, { useState, useEffect } from 'react';
-  import { Container, Image } from './styles';
-  import { ipcRenderer, remote } from 'electron';
   import TextField from '@material-ui/core/TextField';
   import Button from '@material-ui/core/Button';
   import Grid from '@material-ui/core/Grid';
   import Typography from '@material-ui/core/Typography';
+  import { ipcRenderer, remote } from 'electron';
   import Result from '../results';
   import Loading from '../loading';
   import Cog from './assets/cog.svg';
   import Logo from './assets/logo.svg';
-
+  import { Container, Image } from './styles';
 
   const YouTubeRegex = /(.*?)(^|\/|v=)([a-z0-9_-]{11})(.*)?/gim;
   const VideoIdRegex = /([a-z0-9_-]{11})/gim;
